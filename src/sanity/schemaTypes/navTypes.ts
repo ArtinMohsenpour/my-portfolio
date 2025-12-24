@@ -55,7 +55,39 @@ export const navType = defineType({
               },
               initialValue: "link",
             }),
-            // ... (rest of your existing fields)
+            defineField({
+              name: "url",
+              type: "string",
+              title: "URL / Anchor",
+              hidden: ({ parent }) =>
+                parent?.actionType === "contact" ||
+                parent?.actionType === "download",
+            }),
+            defineField({
+              name: "file",
+              title: "File Upload",
+              type: "file",
+              hidden: ({ parent }) => parent?.actionType !== "download",
+            }),
+            defineField({
+              name: "isDropdown",
+              type: "boolean",
+              title: "Enable Dropdown?",
+            }),
+            defineField({
+              name: "dropdownItems",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  fields: [
+                    { name: "label", type: "string" },
+                    { name: "url", type: "string" },
+                  ],
+                },
+              ],
+              hidden: ({ parent }) => !parent?.isDropdown,
+            }),
           ],
           preview: {
             select: {

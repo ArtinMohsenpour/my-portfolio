@@ -24,3 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer base {
+  .bg-sticky-container {
+    @apply fixed inset-0 -z-50 overflow-hidden bg-[#020202];
+  }
+  
+  /* The "Atmosphere" layer - creates the glow effect before image loads */
+  .bg-low-quality {
+    @apply absolute inset-0 blur-[100px] scale-110 opacity-50;
+    background: radial-gradient(circle at 50% 50%, #ffffff10 0%, transparent 70%);
+  }
+}
