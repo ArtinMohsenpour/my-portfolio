@@ -20,7 +20,7 @@ export default function StickyBackground() {
         className="absolute inset-0 h-full w-full"
       >
         <Image
-          src="/bg1.jpg" // Your image in public folder
+          src="/bg3.jpg" // Your image in public folder
           alt="Background Atmosphere"
           fill
           priority // Ensures it starts loading immediately

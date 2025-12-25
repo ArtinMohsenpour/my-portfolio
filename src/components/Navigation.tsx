@@ -2,34 +2,25 @@
 "use client";
 
 import { LiquidButton } from "./ui/LiquidButton";
-import Link from "next/link";
-import { Navigation as NavigationTypes } from "../../sanity.types"; // Path to your generated types
+import { Download } from "lucide-react"; // Import the icon
+import { PORTFOLIO_QUERY_RESULT } from "../../sanity.types";
 
 interface NavigationProps {
-  // We use the specific result type from your GROQ query
-  navData: NavigationTypes | null;
+  navData: PORTFOLIO_QUERY_RESULT["nav"] | null;
 }
 
 export default function Navigation({ navData }: NavigationProps) {
-  // Type-safe access to items
   const items = navData?.items || [];
+  console.log("Navigation items:", items);
 
   if (items.length === 0) return null;
 
   return (
-    <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-100 flex items-center gap-3 p-2 rounded-full bg-black/20 backdrop-blur-2xl border border-white/5 shadow-2xl">
+    <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-100 flex items-center gap-3 p-2 rounded-full">
       {items.map((item) => {
-        // Now TypeScript knows exactly what item.actionType can be
         const key = item._key || item.title;
 
-        if (item.actionType === "download") {
-          return (
-            <LiquidButton key={key} href={item.url ?? undefined} download>
-              {item.title}
-            </LiquidButton>
-          );
-        }
-
+        // Contact Action Case
         if (item.actionType === "contact") {
           return (
             <LiquidButton key={key} onClick={() => console.log("Open Modal")}>
@@ -38,10 +29,23 @@ export default function Navigation({ navData }: NavigationProps) {
           );
         }
 
+        // Download Link Case
+        if (item.actionType === "download") {
+          return (
+            <LiquidButton key={key} href={item.fileUrl ?? undefined} download>
+              <span className="flex items-center gap-2">
+                {item.title}
+                <Download size={16} className="opacity-80" />
+              </span>
+            </LiquidButton>
+          );
+        }
+
+        // Standard Link Case
         return (
-          <Link key={key} href={item.url || "#"} passHref legacyBehavior>
-            <LiquidButton>{item.title}</LiquidButton>
-          </Link>
+          <LiquidButton key={key} href={item.url || "#"}>
+            {item.title}
+          </LiquidButton>
         );
       })}
     </nav>

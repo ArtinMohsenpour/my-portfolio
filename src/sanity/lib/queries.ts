@@ -1,7 +1,8 @@
-import { groq } from "next-sanity";
+// Change 'groq' to 'defineQuery'
+import { defineQuery } from "next-sanity";
 
-export const PORTFOLIO_QUERY = groq`{
-  "nav": *[_type == "navigation"][0] {
+export const PORTFOLIO_QUERY = defineQuery(`{
+  "nav": *[_type == "navigation"] | order(_updatedAt desc)[0]{
     ...,
     items[] {
       ...,
@@ -24,4 +25,4 @@ export const PORTFOLIO_QUERY = groq`{
       }
     }
   }
-}`;
+}`);

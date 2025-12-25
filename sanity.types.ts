@@ -341,3 +341,188 @@ export type AllSanitySchemaTypes =
   | Slug;
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
+
+// Source: src\sanity\lib\queries.ts
+// Variable: PORTFOLIO_QUERY
+// Query: {  "nav": *[_type == "navigation"] | order(_updatedAt desc)[0]{    ...,    items[] {      ...,      "fileUrl": file.asset->url    }  },  "home": *[_type == "home"][0] {    ...,    pageBuilder[] {      ...,      tabs[] {        ...,        content[] {          ...,          _type == "projectBlock" => { ..., "imageUrl": image.asset->url },          _type == "skillsBlock" => { ..., "iconUrl": icon.asset->url },          _type == "bioBlock" => { ..., "profileImageUrl": profileImage.asset->url },          _type == "testimonialBlock" => { ..., "authorImageUrl": authorImage.asset->url }        }      }    }  }}
+export type PORTFOLIO_QUERY_RESULT = {
+  nav: {
+    _id: string;
+    _type: "navigation";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    items: Array<{
+      title?: string;
+      actionType?: "contact" | "download" | "external" | "link";
+      url?: string;
+      file?: {
+        asset?: SanityFileAssetReference;
+        media?: unknown;
+        _type: "file";
+      };
+      isDropdown?: boolean;
+      dropdownItems?: Array<{
+        label?: string;
+        url?: string;
+        _key: string;
+      }>;
+      _type: "navItem";
+      _key: string;
+      fileUrl: string | null;
+    }> | null;
+  } | null;
+  home: {
+    _id: string;
+    _type: "home";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    heroTitle?: string;
+    pageBuilder: Array<{
+      _key: string;
+      _type: "tabsSection";
+      tabs: Array<{
+        tabLabel?: string;
+        content: Array<
+          | {
+              _key: string;
+              _type: "bioBlock";
+              profileImage?: {
+                asset?: SanityImageAssetReference;
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                _type: "image";
+              };
+              fullName?: string;
+              jobTitle?: string;
+              description?: Array<{
+                children?: Array<{
+                  marks?: Array<string>;
+                  text?: string;
+                  _type: "span";
+                  _key: string;
+                }>;
+                style?:
+                  | "blockquote"
+                  | "h1"
+                  | "h2"
+                  | "h3"
+                  | "h4"
+                  | "h5"
+                  | "h6"
+                  | "normal";
+                listItem?: "bullet" | "number";
+                markDefs?: Array<{
+                  href?: string;
+                  _type: "link";
+                  _key: string;
+                }>;
+                level?: number;
+                _type: "block";
+                _key: string;
+              }>;
+              socialLinks?: Array<{
+                platform?: string;
+                url?: string;
+                color?: string;
+                _key: string;
+              }>;
+              profileImageUrl: string | null;
+            }
+          | {
+              _key: string;
+              _type: "educationBlock";
+              university?: string;
+              degree?: string;
+              startDate?: string;
+              endDate?: string;
+              description?: Array<{
+                children?: Array<{
+                  marks?: Array<string>;
+                  text?: string;
+                  _type: "span";
+                  _key: string;
+                }>;
+                style?:
+                  | "blockquote"
+                  | "h1"
+                  | "h2"
+                  | "h3"
+                  | "h4"
+                  | "h5"
+                  | "h6"
+                  | "normal";
+                listItem?: "bullet" | "number";
+                markDefs?: Array<{
+                  href?: string;
+                  _type: "link";
+                  _key: string;
+                }>;
+                level?: number;
+                _type: "block";
+                _key: string;
+              }>;
+            }
+          | {
+              _key: string;
+              _type: "projectBlock";
+              title?: string;
+              description?: string;
+              image?: {
+                asset?: SanityImageAssetReference;
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                _type: "image";
+              };
+              link?: string;
+              tech?: Array<string>;
+              imageUrl: string | null;
+            }
+          | {
+              _key: string;
+              _type: "skillsBlock";
+              name?: string;
+              category?: "backend" | "devops" | "frontend" | "soft";
+              level?: "expert" | "learning" | "proficient";
+              icon?: {
+                asset?: SanityImageAssetReference;
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                _type: "image";
+              };
+              color?: string;
+              iconUrl: string | null;
+            }
+          | {
+              _key: string;
+              _type: "testimonialBlock";
+              author?: string;
+              role?: string;
+              quote?: string;
+              authorImage?: {
+                asset?: SanityImageAssetReference;
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                _type: "image";
+              };
+              authorImageUrl: string | null;
+            }
+        > | null;
+        _key: string;
+      }> | null;
+    }> | null;
+  } | null;
+};
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    '{\n  "nav": *[_type == "navigation"] | order(_updatedAt desc)[0]{\n    ...,\n    items[] {\n      ...,\n      "fileUrl": file.asset->url\n    }\n  },\n  "home": *[_type == "home"][0] {\n    ...,\n    pageBuilder[] {\n      ...,\n      tabs[] {\n        ...,\n        content[] {\n          ...,\n          _type == "projectBlock" => { ..., "imageUrl": image.asset->url },\n          _type == "skillsBlock" => { ..., "iconUrl": icon.asset->url },\n          _type == "bioBlock" => { ..., "profileImageUrl": profileImage.asset->url },\n          _type == "testimonialBlock" => { ..., "authorImageUrl": authorImage.asset->url }\n        }\n      }\n    }\n  }\n}': PORTFOLIO_QUERY_RESULT;
+  }
+}
