@@ -1,3 +1,4 @@
+// src/components/views/ExperienceView.tsx
 "use client";
 
 import Image from "next/image";
@@ -30,7 +31,7 @@ export default function ExperienceView({
   };
 
   return (
-    <div className="relative pl-8 border-l border-white/10 py-6 group first:mt-10">
+    <div className="relative pl-8 border-l border-white/10 pt-4 group ml-6 animate-slide-up max-w-3xl mx-auto">
       {/* Timeline Dot */}
       <div className="absolute  -left-1.25 top-8 w-2.5 h-2.5 rounded-full bg-white/20 group-hover:bg-white group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
 
@@ -48,7 +49,7 @@ export default function ExperienceView({
           </div>
         ) : (
           // Fallback if no logo image is provided
-          <div className="relative shrink-0 w-12 h-12 rounded-md bg-white/5 border border-white/10 mt-1 flex items-center justify-center text-xs font-bold text-white/30">
+          <div className="relative shrink-0 w-12 h-12 rounded-md bg-white/5 border border-white/10 mt-1 flex items-center justify-center text-xs font-bold text-white/60">
             {data.companyName?.slice(0, 2).toUpperCase()}
           </div>
         )}
@@ -63,7 +64,7 @@ export default function ExperienceView({
           </div>
 
           {/* Metadata Row: Date • Location */}
-          <div className="text-sm text-white/50 mt-1 flex flex-wrap gap-x-2 items-center">
+          <div className="text-sm text-white/80 mt-1 flex flex-wrap gap-x-2 items-center">
             <span>
               {formatDate(data.startDate)} –{" "}
               {data.isCurrent ? "Present" : formatDate(data.endDate)}
