@@ -11,12 +11,11 @@ interface NavigationProps {
 
 export default function Navigation({ navData }: NavigationProps) {
   const items = navData?.items || [];
-  console.log("Navigation items:", items);
 
   if (items.length === 0) return null;
 
   return (
-    <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-100 flex items-center gap-3 p-2 rounded-full">
+    <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-100 flex items-center gap-3 p-3 md:p-8 rounded-full">
       {items.map((item) => {
         const key = item._key || item.title;
 

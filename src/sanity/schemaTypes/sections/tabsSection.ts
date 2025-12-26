@@ -29,6 +29,7 @@ export const tabsSection = defineType({
                 { type: "skillsBlock" },
                 { type: "bioBlock" },
                 { type: "testimonialBlock" },
+                { type: "experienceBlock" },
               ],
             },
           ],

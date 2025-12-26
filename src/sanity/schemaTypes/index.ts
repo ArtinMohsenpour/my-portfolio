@@ -7,6 +7,7 @@ import { projectBlock } from "./blocks/projectBlock";
 import { skillsBlock } from "./blocks/skillsBlock";
 import { bioBlock } from "./blocks/bioBlock";
 import { testimonialBlock } from "./blocks/testimonialBlock";
+import { experienceBlock } from "./blocks/experienceBlock";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -18,5 +19,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     skillsBlock,
     bioBlock,
     testimonialBlock,
+    experienceBlock,
   ],
 };

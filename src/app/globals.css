@@ -46,3 +46,61 @@ filter: url(#glass-distortion);
 overflow: hidden;
 isolation: isolate;
 }
+
+/* --- ADD THIS --- */
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .animate-spin-slow {
+    animation: spin 15s linear infinite;
+  }
+  
+  /* Reverse Spin */
+  .animate-spin-reverse-slower {
+    animation: spin-reverse 25s linear infinite;
+  }
+}
+
+@layer utilities {
+  /* Define the animation class manually */
+  .animate-meteor {
+    animation: meteor 5s linear infinite;
+  }
+}
+
+/* Define the keyframes */
+@keyframes meteor-shower {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120vh); /* Falls through the whole screen */
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}

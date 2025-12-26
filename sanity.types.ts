@@ -20,6 +20,42 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
+export type ExperienceBlock = {
+  _type: "experienceBlock";
+  companyName?: string;
+  position?: string;
+  companyLogo?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  location?: string;
+  startDate?: string;
+  endDate?: string;
+  isCurrent?: boolean;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  technologies?: Array<string>;
+};
+
 export type TestimonialBlock = {
   _type: "testimonialBlock";
   author?: string;
@@ -147,6 +183,9 @@ export type TabsSection = {
       | ({
           _key: string;
         } & TestimonialBlock)
+      | ({
+          _key: string;
+        } & ExperienceBlock)
     >;
     _key: string;
   }>;
@@ -319,6 +358,7 @@ export type Slug = {
 
 export type AllSanitySchemaTypes =
   | SanityImageAssetReference
+  | ExperienceBlock
   | TestimonialBlock
   | BioBlock
   | SkillsBlock
@@ -344,7 +384,7 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: src\sanity\lib\queries.ts
 // Variable: PORTFOLIO_QUERY
-// Query: {  "nav": *[_type == "navigation"] | order(_updatedAt desc)[0]{    ...,    items[] {      ...,      "fileUrl": file.asset->url    }  },  "home": *[_type == "home"][0] {    ...,    pageBuilder[] {      ...,      tabs[] {        ...,        content[] {          ...,          _type == "projectBlock" => { ..., "imageUrl": image.asset->url },          _type == "skillsBlock" => { ..., "iconUrl": icon.asset->url },          _type == "bioBlock" => { ..., "profileImageUrl": profileImage.asset->url },          _type == "testimonialBlock" => { ..., "authorImageUrl": authorImage.asset->url }        }      }    }  }}
+// Query: {  "nav": *[_type == "navigation"] | order(_updatedAt desc)[0]{    ...,    items[] {      ...,      "fileUrl": file.asset->url    }  },  "home": *[_type == "home"][0] {    ...,    pageBuilder[] {      ...,      tabs[] {        ...,        content[] {          ...,          _type == "projectBlock" => { ..., "imageUrl": image.asset->url },          _type == "skillsBlock" => { ..., "iconUrl": icon.asset->url },          _type == "bioBlock" => { ..., "profileImageUrl": profileImage.asset->url },          _type == "testimonialBlock" => { ..., "authorImageUrl": authorImage.asset->url },          _type == "experienceBlock" => { ..., "companyLogoUrl": companyLogo.asset->url },          _type == "educationBlock" => { ..., "imageUrl": image.asset->url },        }      }    }  }}
 export type PORTFOLIO_QUERY_RESULT = {
   nav: {
     _id: string;
@@ -464,6 +504,52 @@ export type PORTFOLIO_QUERY_RESULT = {
                 _type: "block";
                 _key: string;
               }>;
+              imageUrl: null;
+            }
+          | {
+              _key: string;
+              _type: "experienceBlock";
+              companyName?: string;
+              position?: string;
+              companyLogo?: {
+                asset?: SanityImageAssetReference;
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                _type: "image";
+              };
+              location?: string;
+              startDate?: string;
+              endDate?: string;
+              isCurrent?: boolean;
+              description?: Array<{
+                children?: Array<{
+                  marks?: Array<string>;
+                  text?: string;
+                  _type: "span";
+                  _key: string;
+                }>;
+                style?:
+                  | "blockquote"
+                  | "h1"
+                  | "h2"
+                  | "h3"
+                  | "h4"
+                  | "h5"
+                  | "h6"
+                  | "normal";
+                listItem?: "bullet" | "number";
+                markDefs?: Array<{
+                  href?: string;
+                  _type: "link";
+                  _key: string;
+                }>;
+                level?: number;
+                _type: "block";
+                _key: string;
+              }>;
+              technologies?: Array<string>;
+              companyLogoUrl: string | null;
             }
           | {
               _key: string;
@@ -523,6 +609,6 @@ export type PORTFOLIO_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '{\n  "nav": *[_type == "navigation"] | order(_updatedAt desc)[0]{\n    ...,\n    items[] {\n      ...,\n      "fileUrl": file.asset->url\n    }\n  },\n  "home": *[_type == "home"][0] {\n    ...,\n    pageBuilder[] {\n      ...,\n      tabs[] {\n        ...,\n        content[] {\n          ...,\n          _type == "projectBlock" => { ..., "imageUrl": image.asset->url },\n          _type == "skillsBlock" => { ..., "iconUrl": icon.asset->url },\n          _type == "bioBlock" => { ..., "profileImageUrl": profileImage.asset->url },\n          _type == "testimonialBlock" => { ..., "authorImageUrl": authorImage.asset->url }\n        }\n      }\n    }\n  }\n}': PORTFOLIO_QUERY_RESULT;
+    '{\n  "nav": *[_type == "navigation"] | order(_updatedAt desc)[0]{\n    ...,\n    items[] {\n      ...,\n      "fileUrl": file.asset->url\n    }\n  },\n  "home": *[_type == "home"][0] {\n    ...,\n    pageBuilder[] {\n      ...,\n      tabs[] {\n        ...,\n        content[] {\n          ...,\n          _type == "projectBlock" => { ..., "imageUrl": image.asset->url },\n          _type == "skillsBlock" => { ..., "iconUrl": icon.asset->url },\n          _type == "bioBlock" => { ..., "profileImageUrl": profileImage.asset->url },\n          _type == "testimonialBlock" => { ..., "authorImageUrl": authorImage.asset->url },\n          _type == "experienceBlock" => { ..., "companyLogoUrl": companyLogo.asset->url },\n          _type == "educationBlock" => { ..., "imageUrl": image.asset->url },\n        }\n      }\n    }\n  }\n}': PORTFOLIO_QUERY_RESULT;
   }
 }
