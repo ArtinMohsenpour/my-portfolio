@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NEXT_DISABLE_TURBOPACK=1 next build",
     "start": "next start",
     "lint": "eslint",
     "typegen": "sanity typegen generate"
@@ -14,16 +14,18 @@
     "@sanity/dashboard": "^5.0.1",
     "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^4.22.0",
+    "@tailwindcss/postcss": "^4.1.18",
     "lucide-react": "^0.562.0",
     "next": "16.1.1",
     "next-sanity": "^11.6.12",
     "nodemailer": "^7.0.12",
+    "postcss": "^8.5.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "sanity": "^5.1.0"
+    "sanity": "^5.1.0",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^20.19.0",
     "@types/nodemailer": "^7.0.4",
     "@types/react": "^19.0.0",
@@ -31,8 +33,6 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "16.1.1",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18",
     "typescript": "^5.0.0"
   },
   "overrides": {
