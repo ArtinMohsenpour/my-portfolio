@@ -50,24 +50,23 @@ body {
     /* 1. Optical Clarity: Higher blur + Saturation boost for that "vibrant" look */
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     backdrop-filter: blur(4px) saturate(180%);
-
-    /* 2. Liquid Surface: Subtle diagonal gradient implies depth/curvature */
-   
-
-    /* 3. Crystalline Borders: Very thin, very subtle */
     border: 1px solid rgba(255, 255, 255, 0.08);
-    
-    /* 4. Depth Stacking: 
-       - Drop shadow for separation from bg
-       - Sharp white inset at top (Rim Light)
-       - Soft white inset at bottom (Reflection) 
-    */
     box-shadow:
       inset 0 1px 0 0 rgba(255, 255, 255, 0.15),   /* Sharp top rim light */
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);  /* Subtle bottom lip */
-
-    /* 5. Fluid Physics for interaction */
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  @media (max-width: 768px) {
+    .mobile-glass-only {
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      backdrop-filter: blur(4px) saturate(180%);
+      background-color: #0a0a0a9f;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
+    }
   }
 
   /* --- HOVER STATE: "Breathing" Effect --- */

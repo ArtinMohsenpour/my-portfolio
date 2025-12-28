@@ -31,14 +31,14 @@ export default function ExperienceView({
   };
 
   return (
-    <div className="relative pl-8 border-l border-white/10 pt-4 group  animate-slide-up max-w-3xl mx-auto">
+    <div className="relative pl-8 border-l border-white/10 py-8  group  max-w-3xl mx-auto">
       {/* Timeline Dot */}
-      <div className="absolute  -left-1.25 top-8 w-2.5 h-2.5 rounded-full bg-white/20 group-hover:bg-white group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
+      <div className="absolute  -left-1.25 top-13 w-2.5 h-2.5 rounded-full animate-slide-up bg-white/20 group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
 
-      <div className="flex flex-col sm:flex-row gap-5 items-start">
+      <div className="flex flex-col sm:flex-row gap-5 items-start ">
         {/* Company Logo (LinkedIn Style) */}
         {data.companyLogoUrl ? (
-          <div className="relative shrink-0 w-12 h-12 rounded-md overflow-hidden bg-white/5 border border-white/10 mt-1 shadow-sm">
+          <div className="relative hidden sm:block shrink-0 w-12 h-12 rounded-md overflow-hidden bg-white/5 border border-white/10 mt-1 shadow-sm animate-slide-up">
             <Image
               src={data.companyLogoUrl}
               alt={data.companyName || "Company Logo"}
@@ -54,7 +54,7 @@ export default function ExperienceView({
           </div>
         )}
 
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 mobile-glass-only group-hover:bg-black/40 group-hover:backdrop-blur-[3px] animate-slide-up text-white/70 group-hover:text-white px-3 py-2 rounded-md group-hover:shadow-sm transition-colors duration-100">
           {/* Role & Company */}
           <h3 className="text-xl font-bold text-white group-hover:text-blue-200 transition-colors truncate">
             {data.position}
@@ -79,7 +79,7 @@ export default function ExperienceView({
 
           {/* Description (Rich Text Rendering) */}
           {data.description && (
-            <div className="mt-4 text-white/70 text-sm leading-relaxed space-y-2">
+            <div className="mt-4 text-sm leading-relaxed space-y-">
               {data.description.map((block) => {
                 if (block._type === "block" && block.children) {
                   return (
@@ -99,7 +99,7 @@ export default function ExperienceView({
               {data.technologies.map((tech, i) => (
                 <span
                   key={i}
-                  className="px-2.5 py-0.5 text-xs rounded-full bg-white/5 border border-white/10 text-white/50 hover:bg-white/10 hover:text-white/80 transition-colors cursor-default"
+                  className="px-2.5 py-0.5 text-xs rounded-full bg-white/5 border border-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-colors cursor-default"
                 >
                   {tech}
                 </span>

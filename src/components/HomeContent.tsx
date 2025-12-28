@@ -68,7 +68,7 @@ export default function HomeContent({ data }: { data: HomeData }) {
                   const isProject = block._type === "projectBlock";
                   const colSpanClass = isProject
                     ? "col-span-1"
-                    : "col-span-1 sm:col-span-2 lg:col-span-4 p-4";
+                    : "col-span-1 sm:col-span-2 lg:col-span-4 px-4";
 
                   return (
                     <div key={block._key} className={colSpanClass}>
