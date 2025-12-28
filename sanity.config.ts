@@ -11,8 +11,5 @@ export default defineConfig({
   projectId,
   dataset,
   schema,
-  plugins: [
-    structureTool(), // Keep it simple for now to get rid of the errors
-    visionTool({ defaultApiVersion: apiVersion }),
-  ],
+  plugins: [structureTool(), visionTool({ defaultApiVersion: apiVersion })],
 });

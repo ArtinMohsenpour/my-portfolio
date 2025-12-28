@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SanityLive } from "@/sanity/lib/live";
+import StickyBackground from "@/components/ui/StickyBackground"; // Import this
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +29,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* Render the background BEHIND everything else */}
+        <StickyBackground />
+
+        {/* Main Content */}
+        <main className="relative z-10">{children}</main>
+
+        <SanityLive />
       </body>
     </html>
   );
