@@ -31,7 +31,7 @@ export default function ExperienceView({
   };
 
   return (
-    <div className="relative pl-8 border-l border-white/10 pt-4 group ml-6 animate-slide-up max-w-3xl mx-auto">
+    <div className="relative pl-8 border-l border-white/10 pt-4 group  animate-slide-up max-w-3xl mx-auto">
       {/* Timeline Dot */}
       <div className="absolute  -left-1.25 top-8 w-2.5 h-2.5 rounded-full bg-white/20 group-hover:bg-white group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
 

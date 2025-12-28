@@ -111,7 +111,7 @@ export type SkillsBlock = {
   _type: "skillsBlock";
   name?: string;
   category?: "frontend" | "backend" | "devops" | "soft";
-  level?: "expert" | "proficient" | "learning";
+  level?: "expert" | "proficient" | "Entry-Level";
   icon?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -237,6 +237,12 @@ export type Navigation = {
   items?: Array<{
     title?: string;
     actionType?: "link" | "external" | "download" | "contact";
+    contactEmail?: string;
+    socialLinks?: Array<{
+      platform?: string;
+      url?: string;
+      _key: string;
+    }>;
     url?: string;
     file?: {
       asset?: SanityFileAssetReference;
@@ -395,6 +401,12 @@ export type PORTFOLIO_QUERY_RESULT = {
     items: Array<{
       title?: string;
       actionType?: "contact" | "download" | "external" | "link";
+      contactEmail?: string;
+      socialLinks?: Array<{
+        platform?: string;
+        url?: string;
+        _key: string;
+      }>;
       url?: string;
       file?: {
         asset?: SanityFileAssetReference;
@@ -572,7 +584,7 @@ export type PORTFOLIO_QUERY_RESULT = {
               _type: "skillsBlock";
               name?: string;
               category?: "backend" | "devops" | "frontend" | "soft";
-              level?: "expert" | "learning" | "proficient";
+              level?: "Entry-Level" | "expert" | "proficient";
               icon?: {
                 asset?: SanityImageAssetReference;
                 media?: unknown;

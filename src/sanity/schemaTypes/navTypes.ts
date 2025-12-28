@@ -4,7 +4,6 @@ export const navType = defineType({
   name: "navigation",
   title: "Navigation",
   type: "document",
-  // --- ADD THIS PREVIEW BLOCK TO THE DOCUMENT LEVEL ---
   preview: {
     select: {
       firstItemTitle: "items.0.title",
@@ -24,7 +23,6 @@ export const navType = defineType({
       };
     },
   },
-  // ----------------------------------------------------
   fields: [
     defineField({
       name: "items",
@@ -55,6 +53,51 @@ export const navType = defineType({
               },
               initialValue: "link",
             }),
+
+            // --- NEW: Contact Email (Only for Contact) ---
+            defineField({
+              name: "contactEmail",
+              title: "Contact Email Address",
+              type: "string",
+              description: "The email address to display in the modal.",
+              hidden: ({ parent }) => parent?.actionType !== "contact",
+              validation: (Rule) => Rule.email(),
+            }),
+
+            // --- NEW: Social Links (Only for Contact) ---
+            defineField({
+              name: "socialLinks",
+              title: "Social Media Links",
+              type: "array",
+              description: "Add social icons to the contact modal.",
+              hidden: ({ parent }) => parent?.actionType !== "contact",
+              of: [
+                {
+                  type: "object",
+                  fields: [
+                    defineField({
+                      name: "platform",
+                      title: "Platform Name",
+                      type: "string",
+                      placeholder: "e.g. GitHub, LinkedIn, Twitter",
+                    }),
+                    defineField({
+                      name: "url",
+                      title: "Profile URL",
+                      type: "url",
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      title: "platform",
+                      subtitle: "url",
+                    },
+                  },
+                },
+              ],
+            }),
+            // ---------------------------------------------
+
             defineField({
               name: "url",
               type: "string",

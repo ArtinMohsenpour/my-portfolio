@@ -35,7 +35,7 @@ export const skillsBlock = defineType({
         list: [
           { title: "Expert (Advanced)", value: "expert" },
           { title: "Proficient (Intermediate)", value: "proficient" },
-          { title: "Learning (Beginner)", value: "learning" },
+          { title: "Entry-Level (Beginner)", value: "Entry-Level" },
         ],
       },
       // Hide this field if it's a Soft Skill (usually we don't rank soft skills)

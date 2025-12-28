@@ -42,7 +42,7 @@ export const LiquidButton = ({
 
     // Use Next.js Link for standard internal navigation
     return (
-      <Link href={href} className="cursor-pointer">
+      <Link href={href} target="blank" className="cursor-pointer">
         {content}
       </Link>
     );

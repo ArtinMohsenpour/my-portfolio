@@ -1,13 +1,17 @@
+// src/components/views/TestimonialView.tsx
+"use client";
+
 import Image from "next/image";
+import { Quote } from "lucide-react";
 import { PORTFOLIO_QUERY_RESULT } from "../../../sanity.types";
 
-// Type Extraction
+// --- Type Extraction ---
 type HomeData = NonNullable<PORTFOLIO_QUERY_RESULT["home"]>;
+type PageBuilder = NonNullable<HomeData["pageBuilder"]>;
 type TabContent = NonNullable<
-  NonNullable<
-    NonNullable<HomeData["pageBuilder"]>[number]["tabs"]
-  >[number]["content"]
+  NonNullable<PageBuilder[number]["tabs"]>[number]["content"]
 >[number];
+
 export type TestimonialBlockData = Extract<
   TabContent,
   { _type: "testimonialBlock" }
@@ -19,25 +23,52 @@ export default function TestimonialView({
   data: TestimonialBlockData;
 }) {
   return (
-    <div className="p-8 bg-linear-to-br from-white/5 to-transparent rounded-2xl border border-white/10 relative">
-      <span className="absolute top-4 left-4 text-6xl text-white/5 font-serif"></span>
-      <p className="relative z-10 text-lg italic text-white/80 mb-6 text-center">
-        {data.quote}
-      </p>
-      <div className="flex items-center justify-center gap-4">
-        {data.authorImageUrl && (
-          <Image
-            fill
-            src={data.authorImageUrl}
-            alt={data.author || "Author"}
-            className="w-12 h-12 rounded-full border border-white/20"
-          />
-        )}
-        <div className="text-left">
-          <div className="font-bold">{data.author}</div>
-          <div className="text-xs text-white/50">{data.role}</div>
+    <div className="group relative h-full max-w-3xl mx-auto flex flex-col p-6 rounded-2xl border border-white/5 glass-card animate-slide-left   hover:from-white/[0.05] hover:to-white/[0.02] transition-all duration-200 ease-out hover:border-white/10 hover:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)]">
+      {/* 1. Header: Minimal Quote Icon & Line */}
+      <div className="flex items-center gap-3 mb-6 opacity-40 group-hover:opacity-100 transition-opacity duration-500">
+        <Quote size={18} className="fill-white text-transparent" />
+        <div className="h-px w-8 bg-white/30" />
+      </div>
+
+      {/* 2. The Quote text (Clean & Readable) */}
+      <blockquote className="flex-1 mb-8">
+        <p className="text-base md:text-lg font-light text-white/90 leading-relaxed tracking-wide">
+          &quot;{data.quote}&quot;
+        </p>
+      </blockquote>
+
+      {/* 3. Author Info (Compact & Sleek) */}
+      <div className="flex items-center gap-3 pt-6 border-t border-white/5 group-hover:border-white/10 transition-colors">
+        {/* Avatar */}
+        <div className="relative shrink-0 w-10 h-10 rounded-full overflow-hidden bg-neutral-800 ring-1 ring-white/10 group-hover:ring-white/30 transition-all">
+          {data.authorImageUrl ? (
+            <Image
+              fill
+              src={data.authorImageUrl}
+              alt={data.author || "Author"}
+              className="object-cover"
+              sizes="40px"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-xs font-bold text-white/40">
+              {data.author?.charAt(0)}
+            </div>
+          )}
+        </div>
+
+        {/* Text Details */}
+        <div className="flex flex-col justify-center">
+          <cite className="not-italic font-medium text-sm text-white group-hover:text-blue-100 transition-colors">
+            {data.author}
+          </cite>
+          <span className="text-[10px] uppercase tracking-widest text-white/40 group-hover:text-white/60 transition-colors">
+            {data.role}
+          </span>
         </div>
       </div>
+
+      {/* Subtle Glow on Hover */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/0 via-white/0 to-white/5 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-700" />
     </div>
   );
 }

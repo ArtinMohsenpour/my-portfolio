@@ -1,6 +1,7 @@
 // src/components/views/SkillsView.tsx
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { PORTFOLIO_QUERY_RESULT } from "../../../sanity.types";
 
@@ -13,68 +14,98 @@ type TabContent = NonNullable<Tabs[number]["content"]>[number];
 export type SkillsBlockData = Extract<TabContent, { _type: "skillsBlock" }>;
 
 export default function SkillsView({ data }: { data: SkillsBlockData }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  // --- Dynamic Style Logic ---
+  // We only apply these styles if isHovered is true AND data.color exists.
+  // Otherwise, we return an empty object, allowing the default CSS classes to take over.
+  const hoverStyle =
+    isHovered && data.color
+      ? ({
+          backgroundColor: `${data.color}15`, // 15 = ~8% opacity
+          borderColor: `${data.color}50`, // 50 = ~30% opacity
+          boxShadow: `0 4px 20px -5px ${data.color}30`, // Colored Glow
+        } as React.CSSProperties)
+      : {};
+
   return (
-    // Container: Liquid Glass Tile
     <div
+      // 1. Event Handlers for Hover State
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      // 2. Base Classes (The "Original Design")
       className="
-        group relative flex flex-col items-center justify-center 
-        p-6 rounded-2xl min-w-[140px] aspect-square
+        group flex items-center gap-4 p-3 rounded-lg w-full
         transition-all duration-300 ease-out
-        
-        /* Glass Base */
-        bg-white/5 backdrop-blur-md
-        border border-white/5
-        
-        /* Initial Shadow (Subtle) */
-        shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),0_4px_10px_rgba(0,0,0,0.1)]
-
-        /* --- HOVER STATE --- */
-        hover:bg-white/10
-        hover:border-white/20
-        hover:scale-105
-        hover:-translate-y-1
-        hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),0_15px_30px_rgba(0,0,0,0.3)]
+        border border-white/5 
+        bg-white/5 backdrop-blur-sm
+        animate-slide-up
       "
+      // 3. Dynamic Inline Styles (Applied ONLY on hover)
+      style={hoverStyle}
     >
-      {/* Icon Area */}
-      {data.iconUrl ? (
-        <div className="relative w-12 h-12 mb-3 transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
-          <Image
-            fill
-            src={data.iconUrl}
-            alt={data.name || "Skill"}
-            className="object-contain"
-            sizes="48px"
-          />
-        </div>
-      ) : (
-        // Fallback Circle if no icon
-        <div className="w-12 h-12 mb-3 rounded-full bg-white/10 flex items-center justify-center text-xl font-bold text-white/40 group-hover:text-white group-hover:bg-white/20 transition-colors">
-          {data.name?.charAt(0) || "?"}
-        </div>
-      )}
+      {/* Icon Container */}
+      <div
+        className="
+          relative shrink-0 w-10 h-10 rounded-lg flex items-center justify-center 
+          overflow-hidden border border-white/5 
+          bg-white/5 
+          group-hover:scale-110 transition-transform duration-300
+        "
+        // Optional: Tint the icon box slightly on hover too if you want
+        style={
+          isHovered && data.color ? { borderColor: `${data.color}50` } : {}
+        }
+      >
+        {data.iconUrl ? (
+          <div className="relative w-6 h-6">
+            <Image
+              fill
+              src={data.iconUrl}
+              alt={data.name || "Skill"}
+              className="object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+              sizes="24px"
+            />
+          </div>
+        ) : (
+          <span className="text-xs font-bold text-white/30 group-hover:text-white">
+            {data.name?.charAt(0) || "?"}
+          </span>
+        )}
+      </div>
 
-      {/* Skill Name */}
-      <h4 className="font-bold text-lg text-white/90 group-hover:text-white tracking-tight text-center">
-        {data.name}
-      </h4>
+      {/* Content */}
+      <div className="flex flex-col flex-1">
+        <h4 className="text-sm font-bold text-white/90 group-hover:text-white transition-colors">
+          {data.name}
+        </h4>
 
-      {/* Level Badge (Optional - only shows if level exists) */}
-      {data.level && (
-        <span
-          className="
-            mt-2 px-2 py-0.5 text-[10px] uppercase tracking-widest font-semibold
-            text-white/40 group-hover:text-white/80
-            border border-white/5 group-hover:border-white/20 rounded-full
-            bg-black/20 transition-colors
-          "
-        >
-          {data.level}
-        </span>
-      )}
+        {data.level && (
+          <div className="flex items-center gap-2 mt-1">
+            {/* Progress Bar Track */}
+            <div className="h-1 w-16 bg-white/10 rounded-full overflow-hidden">
+              {/* Progress Bar Fill */}
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width:
+                    data.level === "expert"
+                      ? "100%"
+                      : data.level === "proficient"
+                        ? "70%"
+                        : "40%",
+                  // Use the color if available, otherwise fallback to blue
+                  backgroundColor: data.color || "#60a5fa",
+                }}
+              />
+            </div>
 
-      {/* Shine Effect Overlay */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/0 via-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            <span className="text-[9px] uppercase tracking-wider text-white/60 group-hover:text-white/70 transition-colors">
+              {data.level}
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
