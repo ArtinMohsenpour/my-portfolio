@@ -1,15 +1,10 @@
 @import "tailwindcss";
 
+/* --- 1. Define Variables --- */
 :root {
+  /* We keep these for text colors, but WON'T apply them to body background */
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +15,133 @@
 }
 
 body {
-  background: var(--background);
+  background: transparent;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  @apply antialiased;
+}
+
+/* --- 3. Base Styles --- */
+@layer base {
+
+  .bg-sticky-container {
+    @apply fixed inset-0 -z-50 overflow-hidden bg-[#020202];
+  }
+  
+  /* Atmosphere Glow */
+  .bg-low-quality {
+    @apply absolute inset-0 blur-[100px] scale-100 opacity-50;
+    background: radial-gradient(circle at 50% 50%, #ffffff10 0%, transparent 70%);
+  }
+}
+
+/* --- 4. Utilities --- */
+@layer utilities {
+   .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* --- ADD THIS DIRECT CLASS --- */
+ .glass-card {
+    /* 1. Optical Clarity: Higher blur + Saturation boost for that "vibrant" look */
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(4px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.15),   /* Sharp top rim light */
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  @media (max-width: 768px) {
+    .mobile-glass-only {
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      backdrop-filter: blur(4px) saturate(180%);
+      background-color: #0a0a0a9f;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  /* --- HOVER STATE: "Breathing" Effect --- */
+  .glass-card:hover {
+    /* Slightly brighter surface */
+    background: linear-gradient(
+      135deg, 
+      rgba(255, 255, 255, 0.02) 100%, 
+      rgba(255, 255, 255, 0.05) 0%
+    );
+    
+    /* Crisper border */
+    border-color: rgba(255, 255, 255, 0.15);
+    
+    /* Stronger rim light and deeper shadow = "Lift" effect */
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.1);
+      
+    /* Micro-float: Makes it feel weightless */
+    transform: translateY(-2px) scale(1.005);
+  }
+
+  /* --- HOLOGRAPHIC ANIMATION --- */
+  @keyframes holograph-enter {
+    0% {
+      opacity: 0;
+      /* Start: Pushed down, scaled out, tilted back, and blurry */
+      transform: translateY(-40px) scale(0.25) perspective(1000px) rotateX(35deg);
+    }
+    100% {
+      opacity: 1;
+      /* End: In place, flat, sharp */
+      transform: translateY(0) scale(1) perspective(1000px) rotateX(0deg);
+    }
+  }
+
+  .animate-holograph {
+    /* Uses a custom cubic-bezier for a "spring-like" snap without the JS overhead */
+    animation: holograph-enter 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: top center; /* Pivots from the top like a HUD */
+    will-change: transform, opacity; /* Optimizes performance */
+  }
+
+  @keyframes slide-up-fade {
+    0% {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    /* "both" ensures the element stays invisible before animation starts */
+    animation: slide-up-fade 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+ 
+
+  @keyframes slide-left-fade {
+    0% {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-left {
+    /* "both" ensures the element stays invisible before animation starts */
+    animation: slide-left-fade 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
 }
