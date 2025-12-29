@@ -1,4 +1,3 @@
-// src/components/views/ExperienceView.tsx
 "use client";
 
 import Image from "next/image";
@@ -31,11 +30,12 @@ export default function ExperienceView({
   };
 
   return (
-    <div className="relative pl-8 border-l border-white/10 py-8  group  max-w-3xl mx-auto">
+    <div className="relative pl-8 border-l border-white/10 py-8 group max-w-3xl mx-auto">
       {/* Timeline Dot */}
-      <div className="absolute  -left-1.25 top-13 w-2.5 h-2.5 rounded-full animate-slide-up bg-white/20 group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
+      <div className="absolute -left-1.25 top-13 w-2.5 h-2.5 rounded-full animate-slide-up bg-white/20 group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
 
-      <div className="flex flex-col sm:flex-row gap-5 items-start ">
+      {/* FIXED: Added 'w-full' to prevent horizontal overflow */}
+      <div className="flex flex-col sm:flex-row gap-5 items-start w-full">
         {/* Company Logo (LinkedIn Style) */}
         {data.companyLogoUrl ? (
           <div className="relative hidden sm:block shrink-0 w-12 h-12 rounded-md overflow-hidden bg-white/5 border border-white/10 mt-1 shadow-sm animate-slide-up">
@@ -49,7 +49,8 @@ export default function ExperienceView({
           </div>
         ) : (
           // Fallback if no logo image is provided
-          <div className="relative shrink-0 w-12 h-12 rounded-md bg-white/5 border border-white/10 mt-1 flex items-center justify-center text-xs font-bold text-white/60">
+          // FIXED: Added 'hidden sm:flex' so this hides on mobile just like the image above
+          <div className="relative hidden sm:flex shrink-0 w-12 h-12 rounded-md bg-white/5 border border-white/10 mt-1 items-center justify-center text-xs font-bold text-white/60">
             {data.companyName?.slice(0, 2).toUpperCase()}
           </div>
         )}
@@ -79,7 +80,7 @@ export default function ExperienceView({
 
           {/* Description (Rich Text Rendering) */}
           {data.description && (
-            <div className="mt-4 text-sm leading-relaxed space-y-">
+            <div className="mt-4 text-sm leading-relaxed space-y-2">
               {data.description.map((block) => {
                 if (block._type === "block" && block.children) {
                   return (

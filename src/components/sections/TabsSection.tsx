@@ -29,9 +29,9 @@ export default function TabsSection({
   onTabChange,
 }: TabsSectionProps) {
   return (
-    <div className="fixed w-full flex justify-center py-5 md:py-12 z-50">
+    <div className="fixed top-16.5 sm:top-25.5 left-0 right-0 w-full flex justify-center z-50">
       <nav
-        className="relative flex flex-wrap justify-center gap-2 md:rounded-full bg-neutral/10 backdrop-blur-md md:bg-black/5 md:backdrop-blur-[1px] border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]"
+        className="relative py-1 sm:py-0 flex flex-wrap justify-center gap-2 md:rounded-full bg-neutral/10 backdrop-blur-md md:bg-black/5 md:backdrop-blur-[1px] border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]"
         role="tablist"
       >
         {tabs.map((tab) => {

@@ -37,7 +37,7 @@ export default function Navigation({ navData }: NavigationProps) {
 
   return (
     <>
-      <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-3 p-3 md:p-8 rounded-full">
+      <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-100 flex items-center gap-3 pt-3 md:p-8 rounded-full">
         {items.map((item) => {
           const key = item._key || item.title;
 
@@ -45,7 +45,9 @@ export default function Navigation({ navData }: NavigationProps) {
           if (item.actionType === "contact") {
             return (
               <LiquidButton key={key} onClick={() => handleContactClick(item)}>
-                {item.title}
+                <span className="flex items-center gap-2 w-20 justify-center">
+                  {item.title}
+                </span>
               </LiquidButton>
             );
           }

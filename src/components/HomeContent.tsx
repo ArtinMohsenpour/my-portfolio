@@ -1,7 +1,7 @@
-// src/components/HomeContent.tsx
 "use client";
 
-import { useState } from "react";
+// 1. Import useRef and useEffect
+import { useState, useRef, useEffect } from "react";
 import { PORTFOLIO_QUERY_RESULT } from "../../sanity.types";
 
 // Import Components
@@ -26,11 +26,21 @@ export default function HomeContent({ data }: { data: HomeData }) {
     tabs.length > 0 ? tabs[0]._key : null
   );
 
+  // 2. Create the Ref for the scrollable container
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // 3. Add Effect: When activeTabKey changes, scroll to top
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      // "instant" makes it snap to top immediately, which feels snappier for tabs
+      scrollContainerRef.current.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [activeTabKey]);
+
   const activeTabContent =
     tabs.find((t) => t._key === activeTabKey)?.content || [];
 
   // --- SKILLS LOGIC: Grouping ---
-  // We filter out skills to render them in a special layout if they exist
   const skillsList = activeTabContent.filter(
     (b): b is SkillsBlockData => b._type === "skillsBlock"
   );
@@ -45,22 +55,24 @@ export default function HomeContent({ data }: { data: HomeData }) {
   const softSkills = skillsList.filter((s) => s.category === "soft");
 
   return (
-    <div className="mx-auto flex flex-row flex-wrap items-center mt-14 w-full">
+    <div className="mx-auto flex flex-row flex-wrap items-center w-full h-fit min-h-screen">
       {/* TABS BUTTONS */}
       {tabs.length > 0 && (
-        <div className=" mb-4  w-full max-w-5xl z-10">
-          <TabsSection
-            tabs={tabs}
-            activeTabKey={activeTabKey}
-            onTabChange={setActiveTabKey}
-          />
-        </div>
+        <TabsSection
+          tabs={tabs}
+          activeTabKey={activeTabKey}
+          onTabChange={setActiveTabKey}
+        />
       )}
 
       {/* CONTENT AREA */}
       <div className="fixed top-12.5 bottom-0 left-0 right-0 no-scrollbar w-full overflow-hidden z-0 pb-26 px-6 md:px-0">
-        <div className="relative w-full h-full overflow-y-auto no-scrollbar mx-auto mt-24 mb-64 max-w-7xl md:px-4">
-          <div key={activeTabKey} className="w-full flex flex-col gap-6 mb-32 ">
+        {/* 4. Attach the ref to the div that has 'overflow-y-auto' */}
+        <div
+          ref={scrollContainerRef}
+          className="relative w-full h-full overflow-y-auto no-scrollbar mx-auto mt-24 mb-64 max-w-7xl md:px-4"
+        >
+          <div key={activeTabKey} className="w-full flex flex-col gap-6 mb-32">
             {/* 1. RENDER NON-SKILL CONTENT (Bio, Projects, etc.) normally */}
             {otherContent.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 w-full pt-6">
@@ -108,11 +120,11 @@ export default function HomeContent({ data }: { data: HomeData }) {
                       </h3>
 
                       {/* Centered Horizontal Line + Dot */}
-                      <div className="relative w-full max-w-[200px] h-px bg-white/10 mb-6">
+                      <div className="relative w-full max-w-50 h-px bg-white/10 mb-6">
                         <div className="absolute left-1/2 -translate-x-1/2 -top-[3.5px] w-2.5 h-2.5 rounded-full bg-blue-500/50 group-hover:bg-blue-400 group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(59,130,246,0.4)]" />
                       </div>
 
-                      {/* List Items (Grid 1 col on mobile, 1 col on desktop for list look) */}
+                      {/* List Items */}
                       <div className="w-fit grid grid-cols-1 gap-2">
                         {frontendSkills.map((skill) => (
                           <SkillsView key={skill._key} data={skill} />
@@ -128,7 +140,7 @@ export default function HomeContent({ data }: { data: HomeData }) {
                         DevOps
                       </h3>
 
-                      <div className="relative w-full max-w-[200px] h-px bg-white/10 mb-6">
+                      <div className="relative w-full max-w-50 h-px bg-white/10 mb-6">
                         <div className="absolute left-1/2 -translate-x-1/2 -top-[3.5px] w-2.5 h-2.5 rounded-full bg-green-500/50 group-hover:bg-green-400 group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(34,197,94,0.4)]" />
                       </div>
 
@@ -147,7 +159,7 @@ export default function HomeContent({ data }: { data: HomeData }) {
                         Backend
                       </h3>
 
-                      <div className="relative w-full max-w-[200px] h-px bg-white/10 mb-6">
+                      <div className="relative w-full max-w-50 h-px bg-white/10 mb-6">
                         <div className="absolute left-1/2 -translate-x-1/2 -top-[3.5px] w-2.5 h-2.5 rounded-full bg-purple-500/50 group-hover:bg-purple-400 group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(168,85,247,0.4)]" />
                       </div>
 
@@ -167,11 +179,10 @@ export default function HomeContent({ data }: { data: HomeData }) {
                       Soft Skills & Tools
                     </h3>
 
-                    <div className="relative w-full max-w-[200px] h-px bg-white/10 mb-6">
+                    <div className="relative w-full max-w-50 h-px bg-white/10 mb-6">
                       <div className="absolute left-1/2 -translate-x-1/2 -top-[3.5px] w-2.5 h-2.5 rounded-full bg-pink-500/50 group-hover:bg-pink-400 group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(236,72,153,0.4)]" />
                     </div>
 
-                    {/* Soft skills can be a 2 or 3 column grid since there might be many */}
                     <div className="w-fit items-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                       {softSkills.map((skill) => (
                         <SkillsView key={skill._key} data={skill} />
