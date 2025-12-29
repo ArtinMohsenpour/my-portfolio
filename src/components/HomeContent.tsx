@@ -109,7 +109,7 @@ export default function HomeContent({ data }: { data: HomeData }) {
 
             {/* 2. SKILLS (3 Columns, Centered Headers, List Items) */}
             {skillsList.length > 0 && (
-              <div className="flex flex-col gap-16 mt-6 pb-20 pt-8">
+              <div className="flex flex-col gap-16 mt-6 pb-20 pt-2 sm:pt-6">
                 {/* TOP SECTION: 3 Columns Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
                   {/* Column 1: Frontend (Blue) */}

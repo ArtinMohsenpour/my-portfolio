@@ -14,7 +14,7 @@ export type ProjectBlockData = Extract<TabContent, { _type: "projectBlock" }>;
 export default function ProjectView({ data }: { data: ProjectBlockData }) {
   return (
     // Tile Container
-    <div className="group relative w-full aspect-4/3 overflow-hidden bg-neutral-900 border-r border-b border-white/5 animate-holograph ">
+    <div className="group relative w-full aspect-4/3 overflow-hidden bg-neutral-900 border-r border-b border-white/5 animate-holograph">
       {/* --- 1. Background Image --- */}
       {data.imageUrl ? (
         <Image

@@ -23,8 +23,8 @@ export default function TestimonialView({
   data: TestimonialBlockData;
 }) {
   return (
-    <div className="group relative h-full max-w-3xl mx-auto flex flex-col ">
-      <div className="relative mb-5 mx-auto w-full p-5 m-5 rounded-2xl border border-white/5 glass-card animate-slide-left bg-black/20  transition-colors duration-200 shadow-lg">
+    <div className="group relative h-full max-w-3xl mx-auto flex flex-col">
+      <div className="relative mb-2 mx-auto w-full p-5 mt-2 rounded-2xl border border-white/5 glass-card animate-slide-left bg-black/20  transition-colors duration-200 shadow-lg">
         {/* 1. Header: Minimal Quote Icon & Line */}
         <div className="flex items-center gap-3 mb-6 opacity-40 group-hover:opacity-100 transition-opacity duration-500">
           <Quote size={18} className="fill-white text-transparent" />

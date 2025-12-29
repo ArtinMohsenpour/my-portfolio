@@ -27,7 +27,7 @@ const getSocialIcon = (platform?: string) => {
 
 export default function BioView({ data }: { data: BioBlockData }) {
   return (
-    <section className="w-full max-w-6xl mx-auto   md:pb-20">
+    <section className="w-full max-w-6xl mx-auto   md:pb-20 pt-2">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start ">
         {/* --- LEFT COLUMN: CONTENT (Span 7/12) --- */}
         <div className="lg:col-span-7 flex flex-col justify-center p-6 md:p-10 rounded-lg md:rounded-3xl overflow-hidden glass-card bg-black/15 animate-holograph">

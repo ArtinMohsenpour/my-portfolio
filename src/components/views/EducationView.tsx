@@ -27,7 +27,7 @@ export default function EducationView({ data }: { data: EducationBlockData }) {
 
   return (
     // Container with Timeline Border & Slide Animation
-    <div className="relative pl-8 border-l border-white/10 pt-4 group max-w-3xl mx-auto">
+    <div className="relative pl-8 border-l border-white/10 pt-2 group max-w-3xl mx-auto">
       {/* Timeline Dot */}
       <div className="absolute -left-1.25 top-9 w-2.5 h-2.5 rounded-full bg-white/20 group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
 
