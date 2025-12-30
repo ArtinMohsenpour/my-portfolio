@@ -38,7 +38,9 @@ export default function EducationView({ data }: { data: EducationBlockData }) {
         </h3>
 
         {/* Degree */}
-        <div className="text-lg text-white/90 font-medium">{data.degree}</div>
+        <div className="sm:text-lg text-white/90 font-medium">
+          {data.degree}
+        </div>
 
         {/* Date Range */}
         <div className="text-sm text-white/70 flex items-center gap-2 mt-0.5">

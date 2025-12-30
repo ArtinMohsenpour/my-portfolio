@@ -89,7 +89,7 @@ export default function ContactModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[120] flex items-center justify-center px-4 sm:px-6">
+    <div className="fixed inset-0 z-120 flex items-center justify-center px-4 sm:px-6">
       {/* 1. Static Backdrop (Click to close) */}
       <div
         onClick={onClose}
@@ -97,9 +97,9 @@ export default function ContactModal({
       />
 
       {/* 2. Modal Container - Uses standard CSS animation class */}
-      <div className="relative w-full max-w-4xl bg-black md:bg-[#0a0a0ae5] border border-white/30 md:border-white/10 rounded-2xl shadow-2xl shadow-white/15 md:shadow-none overflow-hidden flex flex-col md:flex-row animate-slide-up">
+      <div className="relative w-full max-w-4xl bg-black md:bg-[#0a0a0a] border border-white/30 md:border-white/10 rounded-2xl shadow-2xl shadow-white/15 md:shadow-none overflow-hidden flex flex-col md:flex-row animate-slide-up">
         {/* Decorative Top Line */}
-        <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-blue-500/70 to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-blue-500/70 to-transparent" />
 
         {/* Close Button */}
         <button
@@ -110,7 +110,7 @@ export default function ContactModal({
         </button>
 
         {/* --- LEFT COLUMN: FORM --- */}
-        <div className="flex-1 p-6 md:p-10 border-b md:border-b-0 md:border-r border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent">
+        <div className="flex-1 p-6 md:p-10 border-b md:border-b-0 md:border-r border-white/5 bg-linear-to-b from-white/2 to-transparent">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-white tracking-tight">
               Let&apos;s Connect
@@ -202,7 +202,7 @@ export default function ContactModal({
         </div>
 
         {/* --- RIGHT COLUMN: INFO --- */}
-        <div className="md:w-80 bg-white/[0.03] p-6 md:p-10 flex flex-col justify-center border-t md:border-t-0 border-white/5">
+        <div className="md:w-80 bg-white/3 sm:p-6 px-5 pt-1 md:p-10 flex flex-col justify-center border-t md:border-t-0 border-white/5">
           <div className="md:space-y-8 space-y-2">
             {/* Contact Email */}
             <div>
@@ -221,7 +221,7 @@ export default function ContactModal({
             </div>
 
             {/* Social Links */}
-            <div>
+            <div className="hidden sm:flex sm:flex-col">
               <h3 className="text-[10px] uppercase tracking-wider text-white/40 font-bold mb-3">
                 Socials
               </h3>
