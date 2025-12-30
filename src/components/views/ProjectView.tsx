@@ -14,16 +14,17 @@ export type ProjectBlockData = Extract<TabContent, { _type: "projectBlock" }>;
 
 export default function ProjectView({ data }: { data: ProjectBlockData }) {
   return (
-    <div className="group glass-card relative w-full flex flex-col md:block md:aspect-4/3    md:overflow-hidden mb-3 md:mb-0 pt-1 mt-2 sm:p-0 sm:m-0 rounded-b-lg sm:rounded-b-none">
+    // FIXED: Added 'min-w-0' to prevent Grid blowout
+    <div className="group mobile-glass-only bg-black/20! relative w-full min-w-0 flex flex-col md:block md:aspect-4/3 animate-holograph overflow-hidden mb-3 md:mb-0 mt-2 sm:p-0 sm:m-0 rounded-lg sm:rounded-none">
       {/* --- 1. Background Image --- */}
       {/* Mobile: Aspect Video (16:9) | Desktop: Absolute Fill */}
-      <div className="relative w-full  aspect-video md:aspect-auto md:absolute md:inset-0 md:h-full animate-holograph">
+      <div className="relative w-full aspect-video md:aspect-auto md:absolute md:inset-0 md:h-full">
         {data.imageUrl ? (
           <Image
             src={data.imageUrl}
             alt={data.title || "Project"}
             fill
-            className="object-cover px-1 md:p-0 "
+            className="object-cover md:p-0"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
           />
         ) : (
@@ -36,12 +37,14 @@ export default function ProjectView({ data }: { data: ProjectBlockData }) {
       {/* ==============================
            MOBILE VIEW (Glassy Card)
       ============================== */}
-      <div className="md:hidden relative z-10 ">
+      <div className="md:hidden relative z-10">
         {/* The Glassy Card Container */}
-        <div className=" bg-black/20 p-5 flex flex-col items-center gap-4 relative animate-holograph rounded-b-lg">
+        <div className="bg-black/20 p-5 flex flex-col items-center gap-4 relative rounded-b-lg">
           {/* Title: Positioned on the top border line */}
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-neutral-900/90 border border-white/10 px-4 py-1 rounded-full shadow-lg whitespace-nowrap z-20">
-            <h3 className="text-sm font-bold text-white tracking-wide">
+          {/* FIXED: Added 'max-w-[90%]' to constrain width and removed 'whitespace-nowrap' from parent */}
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-neutral-900/90 border border-white/10 px-4 py-1 rounded-full shadow-lg z-20 max-w-[90%]">
+            {/* FIXED: Added 'truncate' (adds ellipsis ...) so long text doesn't push width */}
+            <h3 className="text-sm font-bold text-white tracking-wide truncate">
               {data.title}
             </h3>
           </div>
