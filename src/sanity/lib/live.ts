@@ -1,9 +1,12 @@
-// Querying with "sanityFetch" will keep content automatically updated
-// Before using it, import and render "<SanityLive />" in your layout, see
-// https://github.com/sanity-io/next-sanity#live-content-api for more information.
+// src/sanity/lib/live.ts
 import { defineLive } from "next-sanity/live";
-import { client } from './client'
+import { client } from "./client";
+
+// The token is required to fetch drafts
+const token = process.env.SANITY_API_READ_TOKEN;
 
 export const { sanityFetch, SanityLive } = defineLive({
   client,
+  serverToken: token,
+  browserToken: token,
 });

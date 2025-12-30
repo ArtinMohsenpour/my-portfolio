@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SanityLive } from "@/sanity/lib/live";
 import StickyBackground from "@/components/ui/StickyBackground"; // Import this
+import { VisualEditing } from "next-sanity/visual-editing";
+import { draftMode } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,21 +21,25 @@ export const metadata: Metadata = {
   description: "My portfolio website.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 2. Check draft mode status
+  const { isEnabled } = await draftMode();
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Render the background BEHIND everything else */}
         <StickyBackground />
 
-        {/* Main Content */}
         <main className="relative z-10">{children}</main>
+
+        {/* 3. Render VisualEditing ONLY when in draft mode */}
+        {isEnabled && <VisualEditing />}
 
         <SanityLive />
       </body>
