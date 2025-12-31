@@ -70,7 +70,7 @@ export default function HomeContent({ data }: { data: HomeData }) {
         {/* 4. Attach the ref to the div that has 'overflow-y-auto' */}
         <div
           ref={scrollContainerRef}
-          className="relative w-full h-full overflow-y-auto no-scrollbar mx-auto mt-24 mb-64 max-w-7xl md:px-4"
+          className="relative w-full h-full overflow-y-auto no-scrollbar mx-auto mt-15 md:mt-24 mb-64 max-w-7xl md:px-4"
         >
           <div key={activeTabKey} className="w-full flex flex-col gap-6 mb-32">
             {/* 1. RENDER NON-SKILL CONTENT (Bio, Projects, etc.) normally */}
