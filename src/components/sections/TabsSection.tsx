@@ -35,21 +35,7 @@ export default function TabsSection({
       */}
       <div className="relative w-full md:w-auto max-w-full">
         <nav
-          className="
-            relative flex items-center gap-2 
-            /* Mobile: Scrollable, single row, left aligned */
-            w-full overflow-x-auto flex-nowrap justify-start px-4 py-0
-            /* Desktop: Wrapped, centered, standard width */
-            md:w-auto md:flex-wrap md:justify-center md:px-2 md:py-0 md:rounded-full md:overflow-visible
-            
-            /* Glass Background styling */
-            bg-neutral/10 backdrop-blur-md md:bg-black/5 md:backdrop-blur-[1px] 
-            border-y md:border border-white/10 
-            shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]
-            
-            /* Hide Scrollbar */
-            no-scrollbar
-          "
+          className="relative flex items-center gap-2 w-full overflow-x-auto flex-nowrap justify-start px-4 py-0 md:w-auto md:flex-wrap md:justify-center md:px-2 md:py-0 md:rounded-full md:overflow-visible bg-neutral/10 backdrop-blur-md md:bg-black/5 md:backdrop-blur-[1px] border-y md:border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] no-scrollbar"
           role="tablist"
           style={{
             scrollbarWidth: "none", // Firefox
@@ -72,12 +58,7 @@ export default function TabsSection({
                 onClick={() => onTabChange(tab._key)}
                 role="tab"
                 aria-selected={isActive}
-                className={`
-                  relative px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 z-10 
-                  shrink-0 /* Prevents squishing on mobile */
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 hover:cursor-pointer 
-                  ${isActive ? "text-white text-shadow-sm" : "text-white/70 hover:text-white"}
-                `}
+                className={`relative px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 z-10 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 hover:cursor-pointer ${isActive ? "text-white text-shadow-sm" : "text-white/70 hover:text-white"}`}
                 style={{
                   WebkitTapHighlightColor: "transparent",
                 }}
