@@ -35,20 +35,13 @@ export default function TabsSection({
       */}
       <div className="relative w-full md:w-auto max-w-full">
         <nav
-          className="relative flex items-center gap-2 w-full overflow-x-auto flex-nowrap justify-start px-4 py-0 md:w-auto md:flex-wrap md:justify-center md:px-2 md:py-0 md:rounded-full md:overflow-visible bg-neutral/10 backdrop-blur-md md:bg-black/5 md:backdrop-blur-[1px] border-y md:border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] no-scrollbar"
+          className="relative no-scrollbar flex items-center gap-2 w-full overflow-x-auto flex-nowrap justify-start px-4 py-0 md:w-auto md:flex-wrap md:justify-center md:px-2 md:py-0 md:rounded-full md:overflow-visible bg-neutral/10 backdrop-blur-md md:bg-black/5 md:backdrop-blur-[1px] border-y md:border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] no-scrollbar"
           role="tablist"
           style={{
             scrollbarWidth: "none", // Firefox
             msOverflowStyle: "none", // IE/Edge
           }}
         >
-          {/* Webkit Scrollbar Hide (Inline for safety) */}
-          <style jsx>{`
-            nav::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
-
           {tabs.map((tab) => {
             const isActive = activeTabKey === tab._key;
 

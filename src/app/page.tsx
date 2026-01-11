@@ -10,9 +10,9 @@ export default async function Page() {
   if (!data?.home) return null;
 
   return (
-    <main className="relative min-h-screen w-full">
+    <div className="relative min-h-screen w-full">
       {data.nav && <Navigation navData={data.nav} />}
       <HomeContent data={data.home} />
-    </main>
+    </div>
   );
 }
